@@ -1,9 +1,10 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 //reducers
-import userReducer from './reducers/userReducer';
-import dataReducer from './reducers/dataReducer';
-import uiReducer from './reducers/uiReducer';
+import userReducer from "./reducers/userReducer";
+import dataReducer from "./reducers/dataReducer";
+import uiReducer from "./reducers/uiReducer";
 
 const initialState = {};
 
@@ -11,16 +12,17 @@ const middleware = [thunk];
 
 //combining and assigning imported Reducers to new-state
 const reducers = combineReducers({
-    user: userReducer,
-    data: dataReducer,
-    UI: uiReducer
-  });
+  user: userReducer,
+  data: dataReducer,
+  UI: uiReducer,
+});
 
-//creating store 
-const store = createStore(reducers,
-                         initialState, 
-                         compose(applyMiddleware(...middleware),
-                         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()))
+//creating store
+const store = createStore(
+  reducers,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 //store basically contains the application state
-export default store
+export default store;
